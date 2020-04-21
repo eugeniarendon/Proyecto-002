@@ -11,23 +11,24 @@ class Pelicula
 
   Pelicula(); // default
   //metodos de modificación(void)
-  Actor setlistaActores(Actor i);
   void setNumPeli(int d){ numPeli = d;};
   void setAnio(int i){anio=i;};
   void setDuracion(int d){ duracion = d;};
   void setTitulo(string a){titulo = a;};
   void setGenero(string b){genero= b;};
-  //metodos de acceso(get)
-  Actor getlistaActores(); 
-  void getNumPeli(){ return numPeli;};
-  void getAnio(){return anio;};
-  void getDuracion(){ return duracion;};
-  void getCantActores(){return cantActores;};
-  void getTitulo(){return titulo;};
-  void getGenero(){return genero;};
-  int listaActoresMetodo(int x){cout << listaActores[x]<<endl;};
+  //metodos de acceso(get) 
+  int getNumPeli(){ return numPeli;};
+  int getAnio(){return anio;};
+  int getDuracion(){ return duracion;};
+  string getTitulo(){return titulo;};
+  string getGenero(){return genero;};
+  Actor getActor(int x); //solo me regresa uno, no todo mi arreglo 
+  int getCantActores(){return cantActores;};
   //metodos necesarios
-  Actor agregar(Actor i);
+  bool agregar(Actor i);
+
+
+  Actor getlistaActores();
 
 private:
 int numPeli, anio,duracion,cantActores;
@@ -41,22 +42,16 @@ Actor listaActores[10];
 Pelicula::Pelicula(){
   Actor listaActores(0,"nombre");
   cantActores = -1;
-  numpeli = 0;
+  numPeli = 0;
   anio = 0;
   duracion = 0;
   titulo = "nuevo";
-  genero = "genero"
+  genero = "genero";
 
 }
 
-
-Actor Pelicula::getlistaActores(Actor i){
-return listaActores;
-}
-
-string Pelicula::listaActores(int x){
-cout << listaActores[x] << endl;
-cantActores++;
+Actor Pelicula::getActor(int x){
+listaActores[x]; //??
 }
 
 bool Pelicula::agregar(Actor i){
@@ -66,16 +61,24 @@ bool Pelicula::agregar(Actor i){
   if(i.getId() == listaActores[z].getId()){
     return false;
   }
-  if(i.getId() =! listaActores[z].getId())
+  if(i.getId() != listaActores[z].getId())
   listaActores[cantActores+1] = i;
   cantActores=cantActores+1;
   return true;
  }
+ }
  
- else if(cantActores>10){
+ else {
    cout <<"Ya no hay espacio disponible" << endl;
    return false;
  }
- 
-;
+ ;
+}
+
+//Mostar toda lista de actores
+Actor Pelicula::getlistaActores(){
+for(int s=0;s<x;s++){
+//cout << listaActores[s]<< endl;;
+cantActores++;
+}
 }

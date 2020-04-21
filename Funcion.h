@@ -10,7 +10,7 @@ public:
   Funcion(); // default
   Funcion(Hora, int, int, string); //no es necesario poner un nombre a la variable pq cuando lo implemento 
   //metodos de modificación(void)
-  Hora setSesion(Hora i){sesion=i;};
+  void setSesion(Hora i){sesion =i;};
   void setNumPeli(int d){ numpeli = d;};
   void setSala(int d){ sala = d;};
   void setFuncion(string a){cveFuncion = a;};

@@ -7,7 +7,6 @@ class Actor
 public:
     Actor(); // default
     Actor(int a, string b); // parametros
-
     //metodos de modificación
 	  void setId(int h)	{id=h;};
   	void setNombre(string m) {nombre=m; };

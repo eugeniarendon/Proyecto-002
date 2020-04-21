@@ -1,5 +1,6 @@
 // hora.h
 #include <iostream>
+using namespace std;
 
 class Hora
 {
