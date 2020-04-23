@@ -1,5 +1,6 @@
 // hora.h
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 class Hora
@@ -33,5 +34,6 @@ Hora::Hora(int y, int m) // constructor por parametros
 
 void Hora::muestra()
 {
+  cout << h << ":" << minu << endl;
 	//cout << getw(2) << setfill('0') << h << ":" << setw(2) << setfill('0') << minu << endl;
 }

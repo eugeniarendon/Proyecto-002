@@ -51,7 +51,7 @@ Pelicula::Pelicula(){
 }
 
 Actor Pelicula::getActor(int x){
-listaActores[x]; //??
+cout << listaActores[x].getId() << " "<< listaActores[x].getNombre() << endl;
 }
 
 bool Pelicula::agregar(Actor i){
@@ -59,12 +59,12 @@ bool Pelicula::agregar(Actor i){
  if(cantActores<10){
  for(int z=0; z<10; z++){
   if(i.getId() == listaActores[z].getId()){
-    return false;
+    return 0;
   }
   if(i.getId() != listaActores[z].getId())
   listaActores[cantActores+1] = i;
   cantActores=cantActores+1;
-  return true;
+  return 1;
  }
  }
  
@@ -75,10 +75,11 @@ bool Pelicula::agregar(Actor i){
  ;
 }
 
-//Mostar toda lista de actores
+//mostar toda lista de actores
 Actor Pelicula::getlistaActores(){
-for(int s=0;s<x;s++){
-//cout << listaActores[s]<< endl;;
-cantActores++;
+  for(int y=0;y<cantActores;y++){
+    listaActores[y].muestra();
+  }
 }
-}
+
+

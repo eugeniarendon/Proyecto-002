@@ -8,7 +8,7 @@ class Funcion
 public:
 
   Funcion(); // default
-  Funcion(Hora, int, int, string); //no es necesario poner un nombre a la variable pq cuando lo implemento 
+  Funcion(Hora, int, int, string); 
   //metodos de modificación(void)
   void setSesion(Hora i){sesion =i;};
   void setNumPeli(int d){ numpeli = d;};
@@ -49,7 +49,7 @@ Funcion::Funcion(Hora i, int a , int b , string c){
 
 void Funcion::mostrar(){
   cout << "Cve Funcion: " << cveFuncion << endl;
-  //cout << "Sesion: " << sesion << endl;
+  sesion.muestra();
   cout << "Sala: " << cveFuncion << endl;
   cout << "Numero Pelicula: " << numpeli << endl;
 

@@ -14,17 +14,27 @@ int checar(string cf, Funcion funciones[]){
   return -1;
   }
 
+int checarID(int opcion6,Actor actores[]){
+    for(int x=0;x<20;x++){
+    if(actores[x].getId() == opcion6){
+      return x;
+    }
+  }
+  return -1;
+  }
+
 
 int main() {
-  Actor actores[20], listaActores[];
+  Actor actores[20], listaActores[10];
   Funcion funciones[20];
   Pelicula peliculas[20];
   ifstream archEntrada;
   ifstream archEntrads2;
   string frase,frase2;
-  int nump,sala, opcion, hora, minutos,u=0,id, clave, anio, duracion, numActores, idp,h,m, k=0;
-  Hora hora;
-  string nombre, nombrePelicula,cf;
+  int nump,sala, opcion, hora, minutos,u=0,id, clave, anio, duracion, numActores, idp,h,m, k=0, opcion6, a=0, id1,nuevonumero,nn,p;
+  Hora horaobj;
+  string nombre, nombrePelicula,cf,genero,titulo, nombre1, elnombre;
+  Actor actorespelicula;
 
 //Carga los datos para el arreglo de Actores
 ifstream archivoEntrada;
@@ -33,14 +43,14 @@ archivoEntrada.open("actores.txt");
     actores[u].setId(id);
     getline(archivoEntrada,nombre);
     actores[u].setNombre(nombre);
-    //cout << id << " " << nombre << endl;
     u++;
  }
-//Carga los datos para el arreglo de Películas
+ archivoEntrada.close();
 
+//Carga los datos para el arreglo de Películas
 ifstream archivoEntrada2;
 archivoEntrada2.open("Peliculas.txt");
- while(archivoEnt2>>clave>>anio>>duracion>>genero>>numActores){ 
+ while(archivoEntrada2>>clave>>anio>>duracion>>genero>>numActores){ 
   peliculas[a].setNumPeli(clave);
   peliculas[a].setAnio(anio);
   peliculas[a].setDuracion(duracion);
@@ -48,21 +58,21 @@ archivoEntrada2.open("Peliculas.txt");
 for(int z=0;z<numActores; z++){
   archivoEntrada2>>id;
 //agregamos id a lista actores de peliculas
-  for(int j=0;j<20, j++){
+  for(int j=0;j<20; j++){
       if(id==actores[j].getId()){
-         peliculas[a].agregar(listaActores[j]); //2 arreglos de objetos diferentes?
+        //validar que id exista
+         peliculas[a].agregar(listaActores[j]); 
          }
       }
     }
-  getline(archivoEnt2,titulo){
-   peliculas[a].setTitulo(titulo));
-  }
+  getline(archivoEntrada2,titulo);
+  peliculas[a].setTitulo(titulo);
   a++;
 }
 
+archivoEntrada2.close();
 
 //Pide al usuario que teclee los datos para cada una de las funcionesdisponibles del día.
-
 cout << "Teclee los datos de las fuciones del dia" << endl;
 for(int p=0;p>20;p++){
 cout << "Numero de la pelicula" << endl;
@@ -75,10 +85,10 @@ cout << "Hora de la pelicula" << endl;
 cin>>hora;
 cout << "Minutos de la pelicula" << endl;
 cin>>minutos;
-hora(hora,minutos);
+Hora horaPelicula(hora,minutos);
 funciones[p].setNumPeli(nump);
 funciones[p].setSala(sala);
-funciones[p].setSesion(hora);
+funciones[p].setSesion(horaPelicula);
 funciones[p].setFuncion(nombre);
 }
 
@@ -98,73 +108,75 @@ cin>> opcion;
 
 switch(opcion){
 //Consulta de Actores
-  case 1:
-  cout << "Los actores que estan en la lista son:"
+  case 1:{
+  cout << "Los actores que estan en la lista son:" << endl;
   for(int a=0;a<20;a++){
     id1=actores[u].getId();
     nombre1=actores[u].getNombre();
-    cout << actores[u] << endl;
+    cout << id1 << " " << nombre1 << endl;
+  }
   }
   break;
 
 //Consulta de Peliculas
-  case 2:
-  cout << "Las peliculas que estan en la lista son:"
+  case 2:{
+  cout << "Las peliculas que estan en la lista son:" << endl;
   for(int a=0;a<20;a++){
-  clave = peliculas[a].getNumPeli(clave);
-  anio = peliculas[a].getAnio(anio);
-  duracion =peliculas[a].getDuracion(duracion);
-  genero = peliculas[a].getGenero(genero);
-  nombre = peliculas[a].getTitulo(nombrePelicula));
+  clave = peliculas[a].getNumPeli();
+  anio = peliculas[a].getAnio();
+  duracion =peliculas[a].getDuracion();
+  genero = peliculas[a].getGenero();
+  nombre = peliculas[a].getTitulo();
   cout << clave << " " << anio << " " << duracion << " " << genero << " " << nombre <<endl; 
   cout << " Los actores que aparecen en esta pelicula son:" << endl;
   for(int s=0; s<peliculas[a].getCantActores();s++){
-    cout << peliculas[s].getActor()<< endl; // ?
+     peliculas[a].getActor(s);
+  }
   }
   }
   break;
 
 //Consula de Funciones
-  case 3:
+  case 3:{
   cout << " Las funciones del dia de hoy son:" << endl;
   for(int a=0;a<20;a++){
   nump = funciones[a].getNumPeli();
   sala = funciones[a].getSala();
-  hora = funciones[a].getSesion();
+  horaobj = funciones[a].getSesion();
   nombre = funciones[a].getFuncion();
   cout << nump << " "<< nombre << " a las " << hora << "en la sala " << sala << endl;
   }
-
+  }
   break;
 
 //Consula de funciones por hora
-  case 4:
+  case 4:{
   do{
   cout << "Ingrese la hora a la que desea ver la funcion" << endl;
   cin >> h;
-  while(h<0 && h>25);
+  }while(h<0 && h>25);
   do{
   cout << "Ingrese los minutos" << endl;
   cin >> m;
   }while(m<0 && m>60);
-  hora(h,m); 
+  Hora horacase4(h,m); 
   for(int b=0;b>20;b++){
-  if(funcion[b].getSesion() == hora){
-    nuevonumero=funcion[b].getNumPeli();
+  if(funciones[b].getSesion() == horacase4){
+    nuevonumero=funciones[b].getNumPeli();
     for(int c=0;c>20;c++){
         if(peliculas[c].getNumPeli()==nuevonumero)
         {
           cout << " La pelicula" << peliculas[c].getTitulo() << endl; 
           }
     }
-    cout <<  " se encuentra en la sala" << funcion[b].getSala() << endl;
+    cout <<  " se encuentra en la sala" << funciones[b].getSala() << endl;
   }    
   }
-  
+  }
   break; 
 
 //Consula por clave de funcion 
-  case 5:
+  case 5:{
   do{
   cout << "Ingrese la clave de la funcion" << endl;
   cin>>cf;
@@ -172,52 +184,69 @@ switch(opcion){
   p=checar(cf, funciones);
     if(p>=0){
       sala=funciones[p].getSala();
-      hora=funciones[p].getSesion();
+      horaobj=funciones[p].getSesion();
       nn=funciones[p].getNumPeli();//para poder encontrar la pelicula en mi arreglo
       for(int t=0;t<20;t++){
-        if(peliculas[t].getNumPeli==nn){
+        if(peliculas[t].getNumPeli()==nn){
            titulo=peliculas[t].getTitulo();
-           duracion=peliculas[t].getDuracion()
+           duracion=peliculas[t].getDuracion();
            genero=peliculas[t].getGenero();
-           actores=peliculas[t].getlistaActores(); 
+           actorespelicula=peliculas[t].getlistaActores(); 
         }
       }
-      cout 
+      //cout actores
     }
     else{
       cout << "La clave no existe porfavor intente denuevo." << endl;
     }
     }while(p<0);
-
   }
-
   break;
 
 //Consula de peliculas en las que participa un actor
-  case 6:
-  
+  case 6:{
+  do{
+  cout <<"Inserte el ID del actor del cual desea tener mas información" << endl;
+  cin>>opcion6;
+  p=checarID(opcion6,actores);
+  if(p>=0){
+    elnombre = actores[p].getNombre();
+    for(int l=0;l<20;l++){
+      for(int i=0;i<10;i++){
+      if(peliculas[l].listaActores[i].getId()==id){
+        cout <<  peliculas[l].getTitulo() <<  " " << peliculas[l].getAnio() << endl;
+      }
+    }
+    }
+    }
+    else{
+      cout << "La clave no existe porfavor intente denuevo." << endl;
+    }
+    }while(p<0);
+  }
   break;
 
   //Terminar
-  case 7:
+  case 7:{
   cout << "GRACIAS" << endl;
+  }
   break;
 
-  default:
+  default:{
   if(opcion <0 || opcion >7){
     cout << "Esta opcion no es valida!"<< endl;
   }
-
+  }
 }
 }while(opcion!=7);
 
- 
+return 0;
 
 }
 
 
-  return 0;
-}
+
+
 
 
 
