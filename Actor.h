@@ -34,5 +34,5 @@ Actor::Actor(int h, string m) // constructor por parametros
 }
 
 void Actor::muestra(){
-  cout << "El id del actor " << nombre << " es " << id << endl;
+  cout << nombre << " " << id << endl;
 }

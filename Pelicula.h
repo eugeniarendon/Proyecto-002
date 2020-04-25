@@ -10,38 +10,41 @@ class Pelicula
   public:
 
   Pelicula(); // default
+
   //metodos de modificación(void)
   void setNumPeli(int d){ numPeli = d;};
   void setAnio(int i){anio=i;};
   void setDuracion(int d){ duracion = d;};
   void setTitulo(string a){titulo = a;};
   void setGenero(string b){genero= b;};
+
   //metodos de acceso(get) 
   int getNumPeli(){ return numPeli;};
   int getAnio(){return anio;};
   int getDuracion(){ return duracion;};
+  int getCantActores(){return cantActores;};
   string getTitulo(){return titulo;};
   string getGenero(){return genero;};
-  Actor getActor(int x); //solo me regresa uno, no todo mi arreglo 
-  int getCantActores(){return cantActores;};
+  Actor getactor(int x);
+
   //metodos necesarios
-  bool agregar(Actor i);
-
-
-  Actor getlistaActores();
+  void agregar(Actor i);
+  Actor listaActoresCompleta();
+  Actor infoActor(int x); 
+  int idActor(int x);
+  Actor listaActores[10];
 
 private:
 int numPeli, anio,duracion,cantActores;
 string titulo,genero;
-Actor listaActores[10];
-//cantActores es como un contador, almacenar la cantidad de actores que hay en arreglo
+//Actor listaActores[10];
 };
 
 
 //default
 Pelicula::Pelicula(){
   Actor listaActores(0,"nombre");
-  cantActores = -1;
+  cantActores = 0;
   numPeli = 0;
   anio = 0;
   duracion = 0;
@@ -50,36 +53,51 @@ Pelicula::Pelicula(){
 
 }
 
-Actor Pelicula::getActor(int x){
-cout << listaActores[x].getId() << " "<< listaActores[x].getNombre() << endl;
+Actor Pelicula::getactor(int x){
+  return listaActores[x];
 }
 
-bool Pelicula::agregar(Actor i){
+Actor Pelicula::infoActor(int x){
+listaActores[x].muestra();
+}
 
- if(cantActores<10){
- for(int z=0; z<10; z++){
-  if(i.getId() == listaActores[z].getId()){
-    return 0;
+void Pelicula::agregar(Actor i){
+int contador=1;//para validar que si ya existe el id, no entre a otro if
+if(cantActores==10){
+  cout << " No hay espacio disponible para agregar a un actor" << endl;
+}
+
+if(cantActores==0){
+  listaActores[0].setId(i.getId());
+	listaActores[0].setNombre(i.getNombre());
+	cantActores = cantActores + 1;
+}
+
+if(cantActores!=0){
+  for(int z=0; z<10; z++){
+    if(i.getId() == listaActores[z].getId() && contador==1){
+      //cout <<"El actor ya existe"<< endl;
+      contador=0;
+    }
+  //Validar que sea diferente, que no haya ya entrado a mi ciclo for anterior y que ya este presente, y que el id se encuentre en 0 (valor definido como default)
+    if(i.getId() != listaActores[z].getId() && contador==1 && listaActores[z].getId() == 0){
+    listaActores[z].setId(i.getId());
+    listaActores[z].setNombre(i.getNombre());
+    contador = 0;
+    cantActores=cantActores+1;
+    }
+   }
   }
-  if(i.getId() != listaActores[z].getId())
-  listaActores[cantActores+1] = i;
-  cantActores=cantActores+1;
-  return 1;
- }
- }
- 
- else {
-   cout <<"Ya no hay espacio disponible" << endl;
-   return false;
- }
- ;
 }
 
-//mostar toda lista de actores
-Actor Pelicula::getlistaActores(){
+//Mostar toda lista de actores
+Actor Pelicula::listaActoresCompleta(){
   for(int y=0;y<cantActores;y++){
     listaActores[y].muestra();
   }
 }
 
+int Pelicula::idActor(int x){
+  listaActores[x].getId();
+}
 

@@ -36,7 +36,6 @@ Funcion::Funcion(){
   numpeli = 0;
   sala = 0;
   cveFuncion = "Funcion";
-  //cont++;
 }
 
 Funcion::Funcion(Hora i, int a , int b , string c){
@@ -44,13 +43,11 @@ Funcion::Funcion(Hora i, int a , int b , string c){
   numpeli = a;
   sala = b;
   cveFuncion = c;
-  //cont++;
 }
 
 void Funcion::mostrar(){
   cout << "Cve Funcion: " << cveFuncion << endl;
   sesion.muestra();
-  cout << "Sala: " << cveFuncion << endl;
+  cout << "Sala: " << sala << endl;
   cout << "Numero Pelicula: " << numpeli << endl;
-
 }
